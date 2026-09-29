@@ -1,0 +1,37 @@
+# Master UI/UX & Design System Constraints (Legacyskool)
+
+You are working on the Legacyskool codebase. You MUST strictly adhere to the rules below defined in `DESIGN_SYSTEM.md`.
+
+## 1. Zero Hardcoded Colors (White-Label Rule)
+- **STRICT RULE**: NEVER use hardcoded Tailwind color utilities (e.g. `bg-blue-500`, `text-slate-900`, `border-gray-200`, `#2563eb`).
+- **ALWAYS** use semantic tokens mapped to CSS variables:
+  - Backgrounds: `bg-background`, `bg-card`, `bg-popover`, `bg-muted`, `bg-secondary`, `bg-primary`, `bg-primary-soft`, `bg-accent`
+  - Text: `text-foreground`, `text-muted-foreground`, `text-primary`, `text-primary-foreground`, `text-accent-foreground`
+  - Borders: `border-border`, `border-input`, `border-sidebar-border`
+  - Statuses: `bg-success`, `bg-warning`, `bg-destructive`, `bg-info`
+  - Roles: `bg-admin`, `bg-teacher`, `bg-student`, `bg-parent`
+
+## 2. Typography & Icons
+- Headings & Displays MUST use `font-display` (Plus Jakarta Sans).
+- Body text & labels MUST use `font-sans` (Inter).
+- Icons MUST be imported exclusively from `lucide-react`. Do not introduce raw SVG strings or external icon packages. Standard sizes: `size-3.5`, `size-4`, `size-5`.
+
+## 3. Component Primitives
+- **NEVER** build custom interactive primitives (buttons, modals, dialogs, dropdowns, inputs) from scratch.
+- ALWAYS import and extend primitives from `@/components/ui/*`:
+  - Actions: `<Button variant="..." size="...">`
+  - Overlays: `<Dialog>`, `<AlertDialog>`, `<Sheet>`
+  - Inputs: `<Input>`, `<PasswordInput>`, `<Select>`, `<Checkbox>`, `<Switch>`
+  - Data: `<Card>`, `<Badge>`, `<Avatar>`, `<Table>`
+
+## 4. Navigation & Layout Patterns
+- Sidebar hubs have a **HARD LIMIT of 8 top-level sections** per role view.
+- Secondary view switching inside pages MUST use horizontal scrolling tabs: `<TabsList className="inline-flex w-max space-x-1 bg-muted p-1 rounded-lg">` with container `.scrollbar-thin`.
+
+## 5. Async & Feedback States
+- Toasts MUST use `sonner` via `toast.success()`, `toast.error()`, `toast.info()`.
+- Data loading states MUST use `<Skeleton className="..." />` matching content geometry. Avoid full-screen blocking spinners.
+- Pending buttons MUST show `<Loader2 className="size-4 animate-spin mr-2" />` and `disabled={busy}`.
+
+## 6. CBT Appliance Rules
+- CBT interfaces (`ExamInterface.tsx`) must preserve distraction-free full-screen layout, `<TimerRing />`, `<MathText />` formatting, and color-coded status navigation grids.
